@@ -9,6 +9,7 @@ body {
 }
 
 button {
+    display: inline-block;
     color: white;
     font-size: 14px;
     background-color: #60affc;
