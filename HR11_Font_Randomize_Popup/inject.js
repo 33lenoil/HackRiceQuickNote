@@ -1,3 +1,4 @@
-var ytplayer = document.getElementById("movie_player");
-ytplayer.pauseVideo();
+var ytplayer = document.querySelector('video');
+console.log(ytplayer);
+ytplayer.pause();
 /* Testing */
