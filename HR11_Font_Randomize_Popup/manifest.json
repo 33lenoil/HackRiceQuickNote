@@ -2,12 +2,17 @@
     "manifest_version": 2,
     "name": "Demo Extension",
     "version": "0.1",
-    "content_scripts": [{
-        "matches": [
-            "<all_urls>"
-        ],
-        "js": ["popup.js"]
-    }],
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "popup.js",
+                "getDocUrl.js"
+            ]
+        }
+    ],
     "browser_action": {
         "default_icon": {
             "16": "images/pen16.png",
@@ -22,6 +27,13 @@
         "128": "images/pen128.png"
     },
     "permissions": [
-        "activeTab"
-    ]
+        "activeTab",
+        "tabs"
+    ],
+    "externally_connectable": {
+        "matches": [
+            "*://*.youtube.com/*",
+            "*://docs.google.com/*"
+        ]
+    }
 }
