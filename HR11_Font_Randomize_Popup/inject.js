@@ -1,5 +1,5 @@
 var ytplayer = document.querySelector('video');
-//ytplayer.pause();
+ytplayer.pause();
 /* Testing */
 ytplayer = document.getElementById("movie_player");
 
@@ -19,6 +19,11 @@ chrome.runtime.onMessage.addListener(
                 ytplayer.play();
             }, 2);
 
+        }
+        if (request.url) {
+            chrome.runtime.sendMessage({ url: window.location.href, getURL: true }, function () {
+                console.log("success");
+            });
         }
     }
 );

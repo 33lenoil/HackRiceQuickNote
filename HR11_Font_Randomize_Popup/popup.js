@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         curURL = activeTab.url;
         console.log(curURL);
         chrome.tabs.executeScript(activeTab.id, {
-            file: 'inject.js'
+            file: 'inject.js',
         });
     });
 
@@ -82,6 +82,30 @@ document.addEventListener('DOMContentLoaded', function () {
                         timeLink.innerHTML = "Link Copied into Clipboard";
                     }
 
+                }
+            );
+        });
+    });
+
+    var transcriptButton = document.getElementById('button3');
+    transcriptButton.addEventListener('click', function () {
+        var curURL = '';
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, { url: true }, function () { });
+            chrome.runtime.onMessage.addListener(
+                function (request, sender, sendResponse) {
+                    if (request.getURL) {
+                        console.log(request.url);
+                        curURL = request.url;
+                        console.log(curURL);
+                        if (curURL.includes("&t=")) {
+                            curURL = curURL.substring(0, curURL.indexOf("&t="));
+                        }
+                        videoID = curURL.split('=')[1];
+                        console.log(videoID);
+                        transcriptButton.innerHTML = videoID;
+                        navigator.clipboard.writeText(transcriptButton.innerHTML).then(function () { }, function () { });
+                    }
                 }
             );
         });
